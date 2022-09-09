@@ -22,10 +22,22 @@ document.body.appendChild( renderer.domElement );
 
 //Geometria 
 
-const geometry = new THREE.CapsuleGeometry( 5, 1, 4, 20 );
-const material = new THREE.MeshBasicMaterial( {color: "green"} );
+const geometry = new THREE.CapsuleGeometry( 7, 10, 1, 10 );
+
+const textureLoader = new THREE.TextureLoader();
+const matcap = textureLoader.load("../img/hola4.jpg");
+const material =new THREE.MeshMatcapMaterial();
+
+material.matcap = matcap;
+material.flatShading = true;
+
+
 const capsule = new THREE.Mesh( geometry, material );
 scene.add( capsule );
+
+const edges = new THREE.EdgesGeometry( geometry );
+const line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: "red" } ) );
+scene.add( line );
 
 camera.position.z = 20;
 
@@ -33,8 +45,10 @@ camera.position.z = 20;
 //Funcion
 function animate() {
 	requestAnimationFrame( animate );
-    capsule.rotation.x += 0.1;
-    capsule.rotation.y += 0.1;
+    capsule.rotation.x += 0.01;
+    capsule.rotation.y += 0.01;
 	renderer.render( scene, camera );
+    line.rotation.x += 0.01;
+    line.rotation.y += 0.01;
 }
 animate();

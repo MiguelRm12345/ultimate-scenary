@@ -111,12 +111,12 @@ const controls = new THREE.DragControls( geometrias, camera, renderer.domElement
 
 controls.addEventListener("hoveron", function(event){
 	event.object.material.wireFrame = true;
-	event.object.scale.y *=2;
+	event.object.scale.y *=1.5;
 })
 
 controls.addEventListener("hoveroff", function(event){
 	event.object.material.wireFrame = false;
-	event.object.scale.y /=2;
+	event.object.scale.y /=1.5;
 })
 
 //fly controls

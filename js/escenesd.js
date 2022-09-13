@@ -109,6 +109,37 @@ control.lock();
 let geometrias = [cube, line, TorusKnot, line2, cylinder, line3, plane, line4]
 const controls = new THREE.DragControls( geometrias, camera, renderer.domElement );
 
+controls.addEventListener("hoveron", function(event){
+	event.object.material.wireFrame = true;
+	event.object.scale.y *=2;
+})
+
+controls.addEventListener("hoveroff", function(event){
+	event.object.material.wireFrame = false;
+	event.object.scale.y /=2;
+})
+
+//fly controls
+
+const flyControls = new THREE.FlyControls(camera,renderer.domElement);
+flyControls.movementSpeed = 50;
+flyControls.rollSpeed = 0.01;
+flyControls.autoForward = false;
+flyControls.dragToLock = false;
+
+//fin fly controls
+
+function animate(){
+	requestAnimationFrame(animate);
+	cube.rotetion.x += 0.01;
+	cube.rotation.y += 0.01;
+	cube.rotation.z += 0.01;
+	
+
+	flyControls.update(0.5);
+}
+
+
 // add event listener to highlight dragged objects
 
 
@@ -133,6 +164,7 @@ function animate() {
 	plane.rotation.y += 0.01;
 	line4.rotation.x += 0.01;
 	line4.rotation.y += 0.01;
+	flyControls.update(0.5);
 }
 animate();
 /*  */
